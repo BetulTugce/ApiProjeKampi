@@ -33,6 +33,13 @@ namespace ApiProjeKampi.WebApi.Controllers
             }));
         }
 
+        [HttpGet("GetContact")]
+        public IActionResult GetContact(int id)
+        {
+            var value = _context.Contacts.Find(id);
+            return Ok(value);
+        }
+
         [HttpPost]
         public IActionResult CreateContact(CreateContactDto contactDto)
         {
@@ -45,6 +52,30 @@ namespace ApiProjeKampi.WebApi.Controllers
             _context.Contacts.Add(contact);
             _context.SaveChanges();
             return StatusCode(statusCode: 201);
+        }
+
+        [HttpPut]
+        public IActionResult UpdateContact(UpdateContactDto contactDto)
+        {
+            Contact contact = new Contact();
+            contact.Email = contactDto.Email;
+            contact.Phone = contactDto.Phone;
+            contact.Address = contactDto.Address;
+            contact.MapLocation= contactDto.MapLocation;
+            contact.OpenHours= contactDto.OpenHours;
+            contact.ContactId = contactDto.ContactId;
+            _context.Contacts.Update(contact);
+            _context.SaveChanges();
+            return Ok();
+        }
+
+        [HttpDelete]
+        public IActionResult DeleteContact(int id)
+        {
+            var value = _context.Contacts.Find(id);
+            _context.Contacts.Remove(value);
+            _context.SaveChanges();
+            return Ok();
         }
     }
 }
