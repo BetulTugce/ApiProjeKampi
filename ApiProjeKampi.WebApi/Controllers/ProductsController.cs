@@ -1,5 +1,7 @@
 ﻿using ApiProjeKampi.WebApi.Contexts;
+using ApiProjeKampi.WebApi.Dtos.ProductDtos;
 using ApiProjeKampi.WebApi.Entities;
+using AutoMapper;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,11 +14,13 @@ namespace ApiProjeKampi.WebApi.Controllers
     {
         private readonly IValidator<Product> _validator;
         private readonly ApiContext _context;
+        private readonly IMapper _mapper;
 
-        public ProductsController(IValidator<Product> validator, ApiContext context = null)
+        public ProductsController(IValidator<Product> validator, ApiContext context = null, IMapper mapper = null)
         {
             _validator = validator;
             _context = context;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -35,6 +39,20 @@ namespace ApiProjeKampi.WebApi.Controllers
                 return BadRequest(validationResult.Errors.Select(x => x.ErrorMessage));
             }
             _context.Products.Add(product);
+            _context.SaveChanges();
+            return StatusCode(201);
+        }
+
+        [HttpPost("CreateProductWithCategory")]
+        public IActionResult CreateProductWithCategory(CreateProductDto productDto)
+        {
+            var value = _mapper.Map<Product>(productDto);
+            var validationResult = _validator.Validate(value);
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(validationResult.Errors.Select(x => x.ErrorMessage));
+            }
+            _context.Products.Add(value);
             _context.SaveChanges();
             return StatusCode(201);
         }
