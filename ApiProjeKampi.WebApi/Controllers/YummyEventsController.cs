@@ -7,52 +7,52 @@ namespace ApiProjeKampi.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ServicesController : ControllerBase
+    public class YummyEventsController : ControllerBase
     {
         private readonly ApiContext _context;
 
-        public ServicesController(ApiContext context)
+        public YummyEventsController(ApiContext context)
         {
             _context = context;
         }
 
         [HttpGet]
-        public IActionResult GetServices()
+        public IActionResult GetYummyEvents()
         {
-            var values = _context.Services.ToList();
+            var values = _context.YummyEvents.ToList();
             return Ok(values);
         }
 
-        [HttpGet("GetService")]
-        public IActionResult GetService(int id)
+        [HttpGet("GetYummyEvent")]
+        public IActionResult GetYummyEvent(int id)
         {
-            var value = _context.Services.Find(id);
+            var value = _context.YummyEvents.Find(id);
             return Ok(value);
         }
 
         [HttpPost]
-        public IActionResult CreateService(Service service)
+        public IActionResult CreateYummyEvent(YummyEvent yummyEvent)
         {
-            _context.Services.Add(service);
+            _context.YummyEvents.Add(yummyEvent);
             _context.SaveChanges();
             return StatusCode(201);
         }
 
         [HttpPut]
-        public IActionResult UpdateService(Service service)
+        public IActionResult UpdateYummyEvent(YummyEvent yummyEvent)
         {
-            _context.Services.Update(service);
+            _context.YummyEvents.Update(yummyEvent);
             _context.SaveChanges();
-            return Ok("Servis başarıyla güncellendi!");
+            return Ok("Etkinlik başarıyla güncellendi!");
         }
 
         [HttpDelete]
-        public IActionResult DeleteService(int id)
+        public IActionResult DeleteYummyEvent(int id)
         {
-            var service = _context.Services.Find(id);
-            if (service is not null)
+            var yummyEvent = _context.YummyEvents.Find(id);
+            if (yummyEvent is not null)
             {
-                _context.Services.Remove(service);
+                _context.YummyEvents.Remove(yummyEvent);
                 _context.SaveChanges();
 
                 return Ok("İşlem başarılı!");

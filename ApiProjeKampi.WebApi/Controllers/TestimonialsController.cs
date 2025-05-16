@@ -42,7 +42,7 @@ namespace ApiProjeKampi.WebApi.Controllers
         {
             _context.Testimonials.Update(testimonial);
             _context.SaveChanges();
-            return Ok("Kategori başarıyla güncellendi!");
+            return Ok("Müşteri yorumu başarıyla güncellendi!");
         }
 
         [HttpDelete]
