@@ -1,12 +1,12 @@
-﻿namespace ApiProjeKampi.WebApi.Entities
+﻿namespace ApiProjeKampi.WebUI.DTOs.ServiceDTOs
 {
-    public class Service
+    public class ResultServiceDto
     {
         public int ServiceId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public string IconUrl { get; set; }
         public bool IsActive { get; set; }
-        public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
+        public DateTime CreatedDate { get; set; }
     }
 }
