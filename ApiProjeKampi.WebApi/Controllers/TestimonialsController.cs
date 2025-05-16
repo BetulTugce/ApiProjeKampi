@@ -1,58 +1,57 @@
 ﻿using ApiProjeKampi.WebApi.Contexts;
 using ApiProjeKampi.WebApi.Entities;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiProjeKampi.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ServicesController : ControllerBase
+    public class TestimonialsController : ControllerBase
     {
         private readonly ApiContext _context;
 
-        public ServicesController(ApiContext context)
+        public TestimonialsController(ApiContext context)
         {
             _context = context;
         }
 
         [HttpGet]
-        public IActionResult GetServices()
+        public IActionResult GetTestimonials()
         {
-            var values = _context.Services.ToList();
+            var values = _context.Testimonials.ToList();
             return Ok(values);
         }
 
-        [HttpGet("GetService")]
-        public IActionResult GetService(int id)
+        [HttpGet("GetTestimonial")]
+        public IActionResult GetTestimonial(int id)
         {
-            var value = _context.Services.Find(id);
+            var value = _context.Testimonials.Find(id);
             return Ok(value);
         }
 
         [HttpPost]
-        public IActionResult CreateService(Service service)
+        public IActionResult CreateTestimonial(Testimonial testimonial)
         {
-            _context.Services.Add(service);
+            _context.Testimonials.Add(testimonial);
             _context.SaveChanges();
             return StatusCode(201);
         }
 
         [HttpPut]
-        public IActionResult UpdateService(Service service)
+        public IActionResult UpdateTestimonial(Testimonial testimonial)
         {
-            _context.Services.Update(service);
+            _context.Testimonials.Update(testimonial);
             _context.SaveChanges();
             return Ok("Kategori başarıyla güncellendi!");
         }
 
         [HttpDelete]
-        public IActionResult DeleteService(int id)
+        public IActionResult DeleteTestimonial(int id)
         {
-            var service = _context.Services.Find(id);
-            if (service is not null)
+            var testimonial = _context.Testimonials.Find(id);
+            if (testimonial is not null)
             {
-                _context.Services.Remove(service);
+                _context.Testimonials.Remove(testimonial);
                 _context.SaveChanges();
 
                 return Ok("İşlem başarılı!");
